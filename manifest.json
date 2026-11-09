@@ -1,0 +1,220 @@
+{
+  "package": "atlas_fire_board",
+  "build_time": "2026-10-21T16:10:14",
+  "version": "1.0.0",
+  "model_files": [
+    "models/fire_yolov8n.onnx"
+  ],
+  "total_size": 18114930,
+  "dataset_included": false,
+  "excluded": [
+    "dataset/",
+    "runs/",
+    "training/",
+    "tests/",
+    "tools/",
+    "docs/ 图片与课程报告"
+  ],
+  "files": [
+    {
+      "path": "app/__init__.py",
+      "size": 97,
+      "sha256": "7205bcef7ac75cf561b381d713f54da4e83cc5e25a0ce855ca76f6cc6a22d7b8"
+    },
+    {
+      "path": "app/annotate.py",
+      "size": 5410,
+      "sha256": "ba5c97343183dca92ae0d1db2bc5c1c3ff415481cdf8899906e6d0aedd177b15"
+    },
+    {
+      "path": "app/camera.py",
+      "size": 8471,
+      "sha256": "68e859ce677e5574811262dc354a74515c3d8dfe71c2ae8cb86a89e8fbda4d70"
+    },
+    {
+      "path": "app/config.py",
+      "size": 2444,
+      "sha256": "3c72be0f5a5f89ebf87bfdd05b64844fd0272df4829f552ba544c832c1df5254"
+    },
+    {
+      "path": "app/detector/__init__.py",
+      "size": 134,
+      "sha256": "77119ee2af2b5a8c7a4e64898b3fabef69b1b75cbf4d7ee5513f6b6fc6feb7bf"
+    },
+    {
+      "path": "app/detector/factory.py",
+      "size": 3366,
+      "sha256": "2c4c96c317ceb819ca311747a13caff248cf1d3b087af1f2e8582f71ee0e7c6e"
+    },
+    {
+      "path": "app/detector/om_backend.py",
+      "size": 4371,
+      "sha256": "96f9e0ea6b24b71397103816ced643bea6ed1c758ca6f60de93c590ae840ba03"
+    },
+    {
+      "path": "app/detector/onnx_backend.py",
+      "size": 3876,
+      "sha256": "70ff0f82225790b2b2728c22e78287b09c7c451e90349802c7fc8974e7a6ae31"
+    },
+    {
+      "path": "app/detector/postprocess.py",
+      "size": 4142,
+      "sha256": "2c87846b6b6f38de0b3daf1c49abbd0e38f9d43fbf69f1c26a7d946d607302b6"
+    },
+    {
+      "path": "app/detector/preprocess.py",
+      "size": 1538,
+      "sha256": "10a96f866dc5a8dd142e5ffd35fc5ff819c4ec4dbd8528a622d3c5491f181cc6"
+    },
+    {
+      "path": "app/main.py",
+      "size": 9699,
+      "sha256": "d182289ca38eae5b03886ae1e25b64388a8ce0b1123857a149a220f88d7f65f5"
+    },
+    {
+      "path": "app/monitor.py",
+      "size": 11756,
+      "sha256": "b1bfc25cdd1f32fc3457e75850c1a0dcfa36bcbfeafb5700ed8929f839c2bd98"
+    },
+    {
+      "path": "app/stream.py",
+      "size": 7180,
+      "sha256": "6c7fd70d0c6d71ddf01eb0e9b0d1f27939a4c13f3bea080e620d4d67c60c91a3"
+    },
+    {
+      "path": "app/system_info.py",
+      "size": 3435,
+      "sha256": "b13c1b943a5f215cdfbd6403be2450a73502ee0c39599e3fc906fe6986124836"
+    },
+    {
+      "path": "app/web/css/app.css",
+      "size": 36232,
+      "sha256": "cf8954a3c44a5df7dacf531147e8267a5c07a6eabe52242394cb4886da71b85b"
+    },
+    {
+      "path": "app/web/css/atlas.css",
+      "size": 7151,
+      "sha256": "0d52b742e18e64f217135efd2f112e8f2bf3f8530d41bbfa01723760ec0487bd"
+    },
+    {
+      "path": "app/web/favicon.ico",
+      "size": 6470,
+      "sha256": "767f94e8ed9e70c1400541c218d1d4281002b125b852c43f4782ad823b102ecb"
+    },
+    {
+      "path": "app/web/img/wqy-microhei.ttc",
+      "size": 5177387,
+      "sha256": "e4bca8df123ce01b104780f576ea1a58b9a5ff1662a91124b6d3180cb6c88212"
+    },
+    {
+      "path": "app/web/index.html",
+      "size": 15207,
+      "sha256": "2a54051b358e37120a44171426f8a3f7b3f014e8a3d9bf78fbc9b4dcead90ecf"
+    },
+    {
+      "path": "app/web/js/app.js",
+      "size": 22450,
+      "sha256": "0fc1a00beb7b9ab38a5c9c8767314fb0e029e06eee91db5ab4d4fbdc77ab9c4b"
+    },
+    {
+      "path": "configs/app.json",
+      "size": 1102,
+      "sha256": "15efd74c3e81e21d4982dae68bee5fbd189a03f2dfcba161ebd6b8a7f4403ce5"
+    },
+    {
+      "path": "deployment/atlas-fire.service",
+      "size": 374,
+      "sha256": "78346ded443d476b56d847afa3871f1740f3aa84bf540e2e744df4463457137f"
+    },
+    {
+      "path": "deployment/convert_om.sh",
+      "size": 1813,
+      "sha256": "ce96086cc700ac0fcd64853bbf376062fec3f6e80715e33557ec3cef99a94ae1"
+    },
+    {
+      "path": "deployment/install_board.sh",
+      "size": 963,
+      "sha256": "ce0d0403fe08e81e3e2dae03a03aaa6625ceb2b11d27c0b0af33fd26e4d886a2"
+    },
+    {
+      "path": "deployment/package_for_board.py",
+      "size": 6460,
+      "sha256": "7df59ffb259fbbd78923210c07e7e53ff9f3d99b839f413a85dbf5bd9b810575"
+    },
+    {
+      "path": "deployment/README.md",
+      "size": 1075,
+      "sha256": "371c98d96a5c5ead474293036f5055f8f3b6864d03c26f393361d576b5ae4bbe"
+    },
+    {
+      "path": "deployment/start.sh",
+      "size": 624,
+      "sha256": "84be20175eb7c602cf5b2e184ba5f3db9c66ce9ffa900f43827c49cd9941769a"
+    },
+    {
+      "path": "docs/操作手册.md",
+      "size": 20183,
+      "sha256": "cddaf489c8f2248c51fdf14617d6b091be8270374e5461376dc3537f29b3f2fc"
+    },
+    {
+      "path": "docs/板端部署.md",
+      "size": 10168,
+      "sha256": "8276f4bee5463ea835187faa95d483681243cf6640052d17d1f37fec88d1d916"
+    },
+    {
+      "path": "models/fire_yolov8n.meta.json",
+      "size": 490,
+      "sha256": "5f6e92abf726e0d6f969b11acd31d7e6eb91585fb8b177d5ef95671d8a99e040"
+    },
+    {
+      "path": "models/fire_yolov8n.onnx",
+      "size": 12266098,
+      "sha256": "75791c23ce977ba3abf06fcd9a3dc0bc05518ab2d972b678664856f23db7aa21"
+    },
+    {
+      "path": "models/labels.txt",
+      "size": 11,
+      "sha256": "226684b38809b706c49405fc22f418a447645886be3c29da8a29a8f4d4d1e15c"
+    },
+    {
+      "path": "models/README.md",
+      "size": 1188,
+      "sha256": "a9724e9bdef780760a1ae3edaef5c08f60118fe3deb89a7760dae4b7c2ae6a83"
+    },
+    {
+      "path": "README.md",
+      "size": 13275,
+      "sha256": "8b18772a24327a4cdc50efa3f9397a296a29589ac9ab4ffa5f3be15fce2ae56f"
+    },
+    {
+      "path": "requirements/board.txt",
+      "size": 175,
+      "sha256": "db666ad36a943f8c500a15b680b873840d93b319fb1c5de41e8817ff5abc968b"
+    },
+    {
+      "path": "samples/fire_phone.jpg",
+      "size": 30572,
+      "sha256": "197b3acc9d34eba9354c1544648f436158a2ecc7bca9851de6f6b92fcd87502c"
+    },
+    {
+      "path": "samples/fire_synthetic.jpg",
+      "size": 147740,
+      "sha256": "a9aa977fdc6debc2845c0e62b77f0284f87a3b0a7eb99e6c38d7f4f36f98e95f"
+    },
+    {
+      "path": "samples/normal_room.jpg",
+      "size": 139911,
+      "sha256": "c74b9285989be0265e5b46bbdf216f8beca20b060ceb210d5edb30d8b49e676e"
+    },
+    {
+      "path": "samples/normal_warm_lamp.jpg",
+      "size": 141323,
+      "sha256": "758fbec4f23d2af144c665523b46afd6dd50e743450beea924c944c184a8e3a0"
+    },
+    {
+      "path": "samples/README.md",
+      "size": 569,
+      "sha256": "7ad0955ef87dee7d6d0be041790a458d510aa41b9951b62114b24ca843cc593a"
+    }
+  ]
+}

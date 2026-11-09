@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Atlas 视觉火情监测 · Atlas 200I DK A2</title>
+  <link rel="icon" href="/favicon.ico">
+  <link rel="stylesheet" href="/static/css/app.css">
+  <link rel="stylesheet" href="/static/css/atlas.css">
+</head>
+
+<body>
+  <div class="ambient ambient-a"></div>
+  <div class="ambient ambient-b"></div>
+  <div class="grid-bg"></div>
+
+  <header class="topbar">
+    <div class="brand">
+      <div class="brand-mark" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none">
+          <path d="M12.8 2.4c.4 3.4-1.2 4.7-2.7 6.3-1.5 1.6-2.7 3.2-2.3 6 .2 1.6 1.3 2.9 2.9 3.3-.3-1.9.4-3.3 1.9-4.4-.1 2.2.8 3.4 2 4.3.9.7 1.3 1.7 1 2.8 1.9-.7 3.2-2.4 3.5-4.7.4-3.3-1.6-5.3-3.1-7.2-1.2-1.5-2.1-3-2.1-5.1-.6.1-1 .4-1.1 1.3Z" fill="currentColor"/>
+          <path d="M8.5 21c-.7-.8-1-1.8-1-2.9 0-2 1.2-3.4 2.4-4.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" opacity=".65"/>
+        </svg>
+      </div>
+      <div class="brand-text">
+        <h1>Atlas 视觉火情监测</h1>
+        <p>ATLAS 200I DK A2 <span>/ YOLOv8 EDGE FIRE</span></p>
+      </div>
+    </div>
+
+    <div class="top-status">
+      <div class="status-chip" id="serverChip"><i></i><span>服务连接中</span></div>
+      <div class="status-chip" id="modelChip"><i></i><span>模型加载中</span></div>
+      <div class="status-chip" id="npuChip"><i></i><span>环境检测中</span></div>
+      <div class="divider"></div>
+      <div class="clock">
+        <strong id="clockTime">--:--:--</strong>
+        <span id="clockDate">----/--/--</span>
+      </div>
+    </div>
+  </header>
+
+  <main class="layout">
+    <!-- ===================== 左栏 ===================== -->
+    <aside class="column left-col">
+      <section class="panel">
+        <div class="panel-head">
+          <div>
+            <span class="eyebrow">DETECTION MODEL</span>
+            <h2>YOLOv8 火焰 / 烟雾检测</h2>
+          </div>
+          <span class="tag">YOLOv8n</span>
+        </div>
+
+        <div class="model-hero" id="modelHero">
+          <div class="model-glyph">
+            <svg viewBox="0 0 32 32" fill="none">
+              <rect x="5" y="7" width="22" height="18" rx="3" stroke="currentColor" stroke-width="1.6"/>
+              <path d="M10 12h12M10 16h7M10 20h10" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" opacity=".65"/>
+              <path d="M23 6l3 3-3 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <div>
+            <h3 id="modelName">模型加载中</h3>
+            <p id="modelFile">等待检测后端初始化</p>
+            <span class="model-state" id="modelState">MODEL INIT</span>
+          </div>
+        </div>
+
+        <dl class="info-list">
+          <div><dt>推理后端</dt><dd id="infoBackend" class="accent">--</dd></div>
+          <div><dt>运行设备</dt><dd id="infoDevice">--</dd></div>
+          <div><dt>输入尺寸</dt><dd id="infoInput">--</dd></div>
+          <div><dt>检测阈值</dt><dd id="infoConf">--</dd></div>
+          <div><dt>告警阈值</dt><dd id="infoAlarm">--</dd></div>
+          <div><dt>烟雾确认</dt><dd id="infoConfirm">--</dd></div>
+        </dl>
+      </section>
+
+      <section class="panel">
+        <div class="panel-head">
+          <div>
+            <span class="eyebrow">HARDWARE</span>
+            <h2>Atlas 开发板</h2>
+          </div>
+          <span class="board-chip cpu" id="boardChip">CHECKING</span>
+        </div>
+
+        <div class="board-grid">
+          <div><span>设备</span><b id="boardName">Atlas 200I DK A2</b></div>
+          <div><span>架构</span><b id="boardArch">--</b></div>
+          <div><span>CANN</span><b id="boardCann">--</b></div>
+          <div><span>内存</span><b id="boardMem">--</b></div>
+        </div>
+        <div class="npu-output" id="npuOutput">执行 npu-smi info 中…</div>
+        <button class="text-btn" id="refreshBoard" style="margin-top:7px;">刷新板端信息</button>
+      </section>
+
+      <section class="panel control-panel">
+        <div class="panel-head">
+          <div>
+            <span class="eyebrow">OPERATION</span>
+            <h2>操作</h2>
+          </div>
+        </div>
+        <div class="action-grid">
+          <button class="action" id="uploadNow">
+            <span class="action-icon">↑</span>
+            <span><b>上传图片检测</b><small>单张图片验证模型</small></span>
+          </button>
+          <button class="action" id="saveSnapshot">
+            <span class="action-icon">▣</span>
+            <span><b>保存当前截图</b><small>写入证据列表</small></span>
+          </button>
+          <button class="action" id="clearAlarm">
+            <span class="action-icon">↺</span>
+            <span><b>清除告警</b><small>恢复监控状态</small></span>
+          </button>
+          <button class="action" id="openHelp">
+            <span class="action-icon">?</span>
+            <span><b>部署流程</b><small>训练 / 转 OM / 上板</small></span>
+          </button>
+        </div>
+      </section>
+    </aside>
+
+    <!-- ===================== 中栏 ===================== -->
+    <section class="column center-col">
+      <div class="panel live-panel">
+        <div class="panel-head live-head">
+          <div class="live-title">
+            <span class="rec-dot"></span>
+            <div>
+              <span class="eyebrow">LIVE ANALYSIS · CAM 01</span>
+              <h2>实时火情监控</h2>
+            </div>
+          </div>
+          <div class="live-tools">
+            <span class="mini-tag" id="resolutionTag">-- × --</span>
+            <span class="mini-tag" id="fpsTag">-- FPS</span>
+          </div>
+        </div>
+
+        <div class="video-wrap" id="videoWrap">
+          <img id="liveImage" alt="实时监控画面">
+          <div class="video-placeholder" id="videoPlaceholder">
+            <div class="loader"></div>
+            <p>正在连接推理服务…</p>
+            <small>SSE /api/stream</small>
+          </div>
+
+          <div class="model-overlay" id="modelOverlay">
+            <div class="mo-icon">!</div>
+            <b>模型未就绪</b>
+            <span id="modelOverlayText">请先在 PC 上训练并导出 ONNX，再拷贝到板端转换为 OM。</span>
+            <button class="btn btn-fire" id="overlayHelp">查看部署流程</button>
+          </div>
+
+          <div class="scanline"></div>
+          <div class="frame-corner tl"></div>
+          <div class="frame-corner tr"></div>
+          <div class="frame-corner bl"></div>
+          <div class="frame-corner br"></div>
+          <div class="video-topline">
+            <span class="live-badge"><i></i> LIVE</span>
+            <span class="cam-label" id="camLabel">ATLAS 200I DK A2 · YOLOv8</span>
+          </div>
+          <div class="video-bottomline">
+            <span id="streamState">正在连接推理服务…</span>
+            <span id="detectState">等待画面</span>
+          </div>
+        </div>
+
+        <div class="metrics">
+          <div class="metric">
+            <span class="metric-label">火焰目标</span>
+            <strong id="metricFire">0</strong>
+            <small>FIRE OBJECTS</small>
+          </div>
+          <div class="metric">
+            <span class="metric-label">烟雾目标</span>
+            <strong id="metricSmoke" class="safe">0</strong>
+            <small>SMOKE OBJECTS</small>
+          </div>
+          <div class="metric">
+            <span class="metric-label">最高置信度</span>
+            <strong id="metricScore">--</strong>
+            <small>CONFIDENCE</small>
+          </div>
+          <div class="metric">
+            <span class="metric-label">推理延迟</span>
+            <strong id="metricLatency">--<em>ms</em></strong>
+            <small>INFERENCE</small>
+          </div>
+          <div class="metric">
+            <span class="metric-label">告警状态</span>
+            <strong id="metricAlarm" class="safe">安全</strong>
+            <small id="metricAlarmSub">NO ALARM</small>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel flow-panel">
+        <div class="flow-step">
+          <span>01</span>
+          <div><b>摄像头采集</b><small>/dev/video0 · 640×480</small></div>
+        </div>
+        <i>→</i>
+        <div class="flow-step">
+          <span>02</span>
+          <div><b>Letterbox</b><small>640×640 / RGB</small></div>
+        </div>
+        <i>→</i>
+        <div class="flow-step">
+          <span>03</span>
+          <div><b>Ascend 310B4</b><small>OM 推理 · ONNX 兜底</small></div>
+        </div>
+        <i>→</i>
+        <div class="flow-step">
+          <span>04</span>
+          <div><b>NMS + 分级告警</b><small>烟雾预警 / 火警 · 10s 冷却</small></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== 右栏 ===================== -->
+    <aside class="column right-col">
+      <section class="panel events-panel">
+        <div class="panel-head">
+          <div>
+            <span class="eyebrow">EVIDENCE</span>
+            <h2>告警 / 证据</h2>
+          </div>
+          <span class="count-badge" id="eventCount">0</span>
+        </div>
+        <div class="event-list" id="eventList">
+          <div class="empty-state" id="eventEmpty">
+            <div class="empty-icon">◌</div>
+            <p>暂无检测记录</p>
+            <small>火焰 / 烟雾告警或手动截图会出现在这里</small>
+          </div>
+        </div>
+      </section>
+
+      <section class="panel log-panel">
+        <div class="panel-head">
+          <div>
+            <span class="eyebrow">EVENT LOG</span>
+            <h2>运行日志</h2>
+          </div>
+          <button class="text-btn" id="clearLog">清空</button>
+        </div>
+        <div class="log-list" id="logList">
+          <div class="log-item"><time>--:--:--</time><span>等待系统事件…</span></div>
+        </div>
+      </section>
+    </aside>
+  </main>
+
+  <!-- ===================== 部署说明 ===================== -->
+  <div class="modal" id="helpModal" aria-hidden="true">
+    <div class="modal-mask" data-close="helpModal"></div>
+    <div class="modal-card help-card">
+      <button class="modal-close" data-close="helpModal">×</button>
+      <span class="eyebrow">ATLAS WORKFLOW</span>
+      <h2>从数据集到开发板</h2>
+      <ol class="help-steps">
+        <li><b>准备数据集（PC）</b><span>按 YOLO 格式放 <code>dataset/images</code> 与 <code>dataset/labels</code>，运行 <code>prepare_dataset.py</code> 校验并生成 <code>configs/dataset.yaml</code>。数据集不拷入板子。</span></li>
+        <li><b>训练（PC/GPU）</b><span>执行 <code>python training/train.py</code>，训练 YOLOv8n；验证指标写入 <code>runs/fire/.../metrics.json</code>。</span></li>
+        <li><b>导出 ONNX（PC）</b><span><code>python training/export_onnx.py --weights runs/fire/yolov8n_fire/weights/best.pt</code>，输出到 <code>models/fire_yolov8n.onnx</code>。</span></li>
+        <li><b>转 OM（板端）</b><span><code>bash deployment/convert_om.sh</code> 调用 ATC，目标芯片 <code>Ascend310B4</code>，生成 <code>models/fire_yolov8n.om</code>。</span></li>
+        <li><b>启动服务</b><span><code>bash deployment/start.sh</code>，浏览器打开 <code>http://&lt;板端IP&gt;:8000/</code>，使用 USB 摄像头实时检测。</span></li>
+      </ol>
+      <div class="help-note">
+        <b>板端只带模型，不带数据集</b>
+        <span>打包脚本会排除 <code>dataset/</code>、<code>runs/</code>、<code>training/</code>；Atlas 4GB 内存建议使用 YOLOv8n + 640 输入。</span>
+      </div>
+      <button class="btn btn-fire" data-close="helpModal">开始使用</button>
+    </div>
+  </div>
+
+  <!-- ===================== 单图检测 ===================== -->
+  <div class="modal" id="detectModal" aria-hidden="true">
+    <div class="modal-mask" data-close="detectModal"></div>
+    <div class="modal-card detect-modal">
+      <button class="modal-close" data-close="detectModal">×</button>
+      <span class="eyebrow">SINGLE IMAGE</span>
+      <h2>上传图片检测</h2>
+      <label class="detect-zone" for="detectFile">
+        <span class="dz-icon">↑</span>
+        <span><b>选择一张火焰 / 烟雾图片</b>支持 JPG / PNG，上传后调用当前模型推理</span>
+        <input type="file" id="detectFile" accept="image/*">
+      </label>
+      <img class="detect-preview" id="detectPreview" alt="待检测图片">
+      <div class="detect-toolbar">
+        <div class="detect-summary" id="detectSummary">尚未选择图片</div>
+        <button class="btn btn-fire" id="runDetect" disabled>开始检测</button>
+      </div>
+      <div class="detect-result" id="detectResult">
+        <img id="detectResultImage" alt="检测结果">
+        <div class="detect-list" id="detectList"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================== 图片查看 ===================== -->
+  <div class="modal" id="imageModal" aria-hidden="true">
+    <div class="modal-mask" data-close="imageModal"></div>
+    <div class="modal-card image-card">
+      <button class="modal-close" data-close="imageModal">×</button>
+      <img id="modalImage" alt="证据截图">
+      <div class="image-caption">
+        <span id="modalCaption">证据截图</span>
+        <span id="modalMeta"></span>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast-root" id="toastRoot"></div>
+
+  <script src="/static/js/app.js"></script>
+</body>
+
+</html>

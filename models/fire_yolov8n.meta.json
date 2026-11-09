@@ -1,0 +1,15 @@
+{
+  "timestamp": "2026-10-21T13:23:44",
+  "source_weights": "C:\\Users\\Administrator\\Desktop\\课设\\edge_fire\\runs\\fire\\yolov8n_fire\\weights\\best.pt",
+  "onnx": "C:\\Users\\Administrator\\Desktop\\课设\\edge_fire\\models\\fire_yolov8n.onnx",
+  "imgsz": 640,
+  "opset": 12,
+  "batch": 1,
+  "dynamic": false,
+  "names": {
+    "0": "fire",
+    "1": "smoke"
+  },
+  "sha256": "75791c23ce977ba3abf06fcd9a3dc0bc05518ab2d972b678664856f23db7aa21",
+  "size_bytes": 12266098
+}

@@ -1,0 +1,7 @@
+# Atlas 200I DK A2 板端运行依赖（不包含训练框架）
+# Python 3.8 ~ 3.11
+Flask>=2.2,<4
+numpy>=1.21,<3
+opencv-python-headless>=4.5,<5
+Pillow>=9.0
+onnxruntime>=1.14

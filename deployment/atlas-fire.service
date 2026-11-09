@@ -1,0 +1,16 @@
+[Unit]
+Description=Atlas Fire Watch (YOLOv8 on Ascend 310B4)
+After=network.target
+
+[Service]
+Type=simple
+User=root
+WorkingDirectory=/home/root/atlas_fire
+Environment=PYTHONIOENCODING=utf-8
+Environment=ASCEND_HOME=/usr/local/Ascend/ascend-toolkit
+ExecStart=/bin/bash /home/root/atlas_fire/deployment/start.sh
+Restart=always
+RestartSec=3
+
+[Install]
+WantedBy=multi-user.target

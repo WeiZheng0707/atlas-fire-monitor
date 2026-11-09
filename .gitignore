@@ -1,0 +1,20 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+
+# 运行产物
+data/events/
+*.log
+*.tar.gz
+
+# 板端转换产物（可由 models/fire_yolov8n.onnx 重新生成）
+models/fire_yolov8n.om
+
+# 编辑器 / 系统
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db

@@ -1,0 +1,53 @@
+{
+  "server": {
+    "host": "0.0.0.0",
+    "port": 8000
+  },
+  "camera": {
+    "source": "0",
+    "width": 640,
+    "height": 480,
+    "fps": 25,
+    "fallback": "file:samples/fire_synthetic.jpg"
+  },
+  "model": {
+    "backend": "auto",
+    "om_path": "models/fire_yolov8n.om",
+    "onnx_path": "models/fire_yolov8n.onnx",
+    "labels": "models/labels.txt",
+    "input_size": 640,
+    "device_id": 0,
+    "conf_threshold": 0.35,
+    "iou_threshold": 0.5,
+    "max_detections": 30,
+    "class_agnostic_nms": true
+  },
+  "alarm": {
+    "enabled": true,
+    "class_names": ["fire", "smoke"],
+    "threshold": 0.45,
+    "thresholds": {
+      "fire": 0.45,
+      "smoke": 0.35
+    },
+    "confirm_frames": {
+      "fire": 1,
+      "smoke": 3
+    },
+    "cooldown_seconds": 10,
+    "hold_seconds": 6,
+    "escalate": true,
+    "save_snapshots": true,
+    "save_dir": "data/events",
+    "max_events": 100
+  },
+  "stream": {
+    "infer_interval_ms": 0,
+    "max_fps": 15,
+    "jpeg_quality": 75
+  },
+  "system": {
+    "npu_status_cache_seconds": 10,
+    "ascend_home": "/usr/local/Ascend/ascend-toolkit"
+  }
+}
